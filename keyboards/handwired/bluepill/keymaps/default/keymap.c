@@ -58,7 +58,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     break;
   case _FNTWO:
     palClearPad(GPIOA, 0); //ON Color A
-    palClearPad(GPIOA, 1);  //ON Color B
+    palClearPad(GPIOA, 0);  //ON Color B
     break;
   default: //  for any other layers, or the default layer
     palClearPad(GPIOA, 0); //ON Color A

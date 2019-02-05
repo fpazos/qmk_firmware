@@ -1,4 +1,4 @@
-#include "viterbi.h"
+#include "portaterbi.h"
 
 
 #ifdef SSD1306OLED

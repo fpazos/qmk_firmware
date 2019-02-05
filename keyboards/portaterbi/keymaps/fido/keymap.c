@@ -1,4 +1,4 @@
-#include "viterbi.h"
+#include "portaterbi.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #ifdef RGBLIGHT_ENABLE

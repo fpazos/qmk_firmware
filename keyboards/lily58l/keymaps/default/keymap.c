@@ -181,3 +181,11 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
+
+#ifdef RGBLIGHT_ENABLE
+    void matrix_init_user(void) {
+        rgblight_enable();
+	    rgblight_sethsv(0,255,255);
+        rgblight_mode(3);
+    }
+#endif

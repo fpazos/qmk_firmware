@@ -38,8 +38,9 @@
 #define SOFT_SERIAL_PIN D2
 
 #define RGB_DI_PIN D3
-#define RGBLED_SPLIT { 35, 35 }
-#define RGBLED_NUM 70
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_SPLIT { 29, 29 }
+#define RGBLED_NUM 58
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_LIMIT_VAL 120
 

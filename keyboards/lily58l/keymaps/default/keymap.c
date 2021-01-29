@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT( \
   KC_F12, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                              KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, \
-  _______, _______, ALGR(KC_1), KC_CIRC, RSFT(KC_1), C(KC_F5),                                  _______, RALT(KC_PSCR), _______, _______, KC_EQL, KC_LBRC,\
+  KC_CAPS, _______, ALGR(KC_1), KC_CIRC, RSFT(KC_1), C(KC_F5),                                  _______, RALT(KC_PSCR), _______, _______, KC_EQL, KC_LBRC,\
   _______, RALT(KC_4), RALT(KC_QUOT),RALT(KC_LBRC),RSFT(KC_8),KC_MINS,                            KC_AT, RSFT(KC_9), ALGR(KC_RBRC), ALGR(KC_NUHS), _______, KC_NUHS, \
   _______, RSFT(KC_5), RSFT(KC_RBRC), KC_SLSH, KC_RBRC, RSFT(KC_7), ALGR(KC_GRV),      KC_PSCR, C(KC_S), C(KC_Z), C(KC_Y), C(KC_V), C(KC_C), C(KC_X), \
                                     _______, _______, _______, KC_DEL,                    _______, _______, _______, _______\
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT( \
-  _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______,                           _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_EQL, \
+  _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______, KC_EQL, \
   _______,  KC_MRWD, KC_MSTP, KC_MPLY, KC_MFFD,_______,                           _______, _______, KC_UP  , _______, _______, _______, \
   _______,  KC_PGUP, KC_HOME, KC_END, KC_PGDN, _______,                           _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
   _______,  _______, KC_MUTE, KC_VOLD, KC_VOLU,_______,  _______,     LCA(KC_DEL),_______, C(KC_INS), RSFT(KC_INS), _______, _______, _______, \
@@ -103,6 +103,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 #ifdef OLED_DRIVER_ENABLE
+char wpm_str[10];
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -149,10 +150,10 @@ static void render_status(void) {
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK \n") : PSTR("       \n"), false);
-´
-    uint8_t wordsperminute = get_current_wpm(void);
+
     oled_write_P(PSTR("WPM: "), false);
-    oled_write_P(PSTR(wordsperminute), false);
+    sprintf(wpm_str, "%03d", get_current_wpm());
+    oled_write(wpm_str, false);
 }
 
 void oled_task_user(void) {

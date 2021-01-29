@@ -10,6 +10,7 @@
 
 // Master is where the usb cable is plugged in
 #define MASTER_LEFT
+// #define SPLIT_HAND_PIN D2
 // #define MASTER_RIGHT
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:

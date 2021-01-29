@@ -29,17 +29,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC, \
   KC_TAB, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NUBS,  KC_INS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  MT(MOD_LSFT,KC_ENT), \
-     KC_RCTRL, MT(MOD_LALT,KC_LGUI), LT(_LOWER, KC_SPC),KC_BSPC,  KC_SPC, LT(_RAISE, KC_BSPC),  MT(MOD_RALT,KC_LEFT), KC_RIGHT \
+     KC_LCTRL, MT(MOD_LALT,KC_LGUI), LT(_LOWER, KC_SPC),KC_BSPC,  KC_SPC, LT(_RAISE, KC_BSPC),  MT(MOD_RALT,KC_LEFT), KC_RIGHT \
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | F12  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |   |  |   &  |   !  | CtF5 |                    |      |      |      |      |      | `^[  |
+ * |      |      |   |  |   &  |   !  | CtF5 |                    |      |Print1|      |      |      | `^[  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |   ~  |   {  |   [  |   (  |   '  |-------.    ,-------|   "  |   )  |   ]  |   }  |      | çÇ}  |
  * |------+------+------+------+------+------|   \   |    | Print |------+------+------+------+------+------|
- * |      |   %  |   *  |   -  |   +  |   /  |-------|    |-------|Print1| Undo | Copy | Paste| Cut  |      |
+ * |      |   %  |   *  |   -  |   +  |   /  |-------|    |-------| Save | Undo | Redo | Paste| Cut  | Copy |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | RCtrl| Win  |Space | / Del   /       \Space \  |BSpace| Left | Right|
  *                   |      | Alt  | Lower|/       /         \      \ |RAISE |AltGr |      |
@@ -47,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT( \
   KC_F12, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                              KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, \
-  _______, _______, ALGR(KC_1), KC_CIRC, RSFT(KC_GRV), C(KC_F5),                                  _______, _______, _______, _______, _______, KC_LBRC,\
+  _______, _______, ALGR(KC_1), KC_CIRC, RSFT(KC_1), C(KC_F5),                                  _______, RALT(KC_PSCR), _______, _______, KC_EQL, KC_LBRC,\
   _______, RALT(KC_4), RALT(KC_QUOT),RALT(KC_LBRC),RSFT(KC_8),KC_MINS,                            KC_AT, RSFT(KC_9), ALGR(KC_RBRC), ALGR(KC_NUHS), _______, KC_NUHS, \
-  _______, RSFT(KC_5), RSFT(KC_RBRC), KC_SLSH, KC_RBRC, RSFT(KC_7), ALGR(KC_GRV),      KC_PSCR, RALT(KC_PSCR), C(KC_Z), C(KC_C), C(KC_V), C(KC_X), _______, \
+  _______, RSFT(KC_5), RSFT(KC_RBRC), KC_SLSH, KC_RBRC, RSFT(KC_7), ALGR(KC_GRV),      KC_PSCR, C(KC_S), C(KC_Z), C(KC_Y), C(KC_V), C(KC_C), C(KC_X), \
                                     _______, _______, _______, KC_DEL,                    _______, _______, _______, _______\
 ),
 
@@ -60,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      | MRwd | Stop | Play | MFwd |      |                    |      |      |  Up  |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      | PagUp| Home | End  | PagDw|      |-------.    ,-------|      | Left | Down | Right|      |      |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      | Mute | Vol- | Vol+ |      |-------|    |-------|      |      |CopMsy|PegMsy|      |      |
+ * |------+------+------+------+------+------|       |    |ctaltsu|------+------+------+------+------+------|
+ * |      |      | Mute | Vol- | Vol+ |      |-------|    |-------|      |CopMsy|PegMsy|      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | RCtrl| Win  |Space | /BSpace /       \Space \  |BSpace| Left | Right|
  *                   |      | Alt  | Lower|/       /         \      \ |RAISE |AltGr |      |
@@ -69,10 +69,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT( \
-  _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______,                           _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, \
+  _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______,                           _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_EQL, \
   _______,  KC_MRWD, KC_MSTP, KC_MPLY, KC_MFFD,_______,                           _______, _______, KC_UP  , _______, _______, _______, \
   _______,  KC_PGUP, KC_HOME, KC_END, KC_PGDN, _______,                           _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
-  _______,  _______, KC_MUTE, KC_VOLD, KC_VOLU,_______,  _______,     LCA(KC_DEL),_______, _______, C(KC_INS), RSFT(KC_INS), _______, _______, \
+  _______,  _______, KC_MUTE, KC_VOLD, KC_VOLU,_______,  _______,     LCA(KC_DEL),_______, C(KC_INS), RSFT(KC_INS), _______, _______, _______, \
                              _______, _______, _______,  _______,       _______,  _______, _______, _______ \
 ),
 /* ADJUST
@@ -112,18 +112,18 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 static void render_logo(void) {
-    static const char PROGMEM qmk_logo[] = {
+    static const char PROGMEM fp_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
         0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
         0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
     };
 
-    oled_write_P(qmk_logo, false);
+    oled_write_P(fp_logo, false);
 }
 
 static void render_status(void) {
     // Version information
-    oled_write_P(PSTR("Lily58L rev1.0\n\n"), false);
+    oled_write_P(PSTR("Lily58L rev1.fpazos\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -148,7 +148,11 @@ static void render_status(void) {
     uint8_t led_usb_state = host_keyboard_leds();
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK \n") : PSTR("       \n"), false);
+´
+    uint8_t wordsperminute = get_current_wpm(void);
+    oled_write_P(PSTR("WPM: "), false);
+    oled_write_P(PSTR(wordsperminute), false);
 }
 
 void oled_task_user(void) {
@@ -180,12 +184,4 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
-#endif
-
-#ifdef RGBLIGHT_ENABLE
-    void matrix_init_user(void) {
-        rgblight_enable();
-	    rgblight_sethsv(0,255,255);
-        rgblight_mode(3);
-    }
 #endif

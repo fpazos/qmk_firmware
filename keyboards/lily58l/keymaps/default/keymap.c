@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "stdio.h"
 
 enum layers {
     _QWERTY = 0,
@@ -124,7 +125,7 @@ static void render_logo(void) {
 
 static void render_status(void) {
     // Version information
-    oled_write_P(PSTR("Lily58L rev1.fpazos\n"), false);
+    oled_write_P(PSTR("Lily58L rev1 fpazos\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -149,10 +150,11 @@ static void render_status(void) {
     uint8_t led_usb_state = host_keyboard_leds();
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK \n") : PSTR("       \n"), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK") : PSTR("       "), false);
 
-    oled_write_P(PSTR("WPM: "), false);
+    oled_write_P(PSTR("WPM:"), false);
     sprintf(wpm_str, "%03d", get_current_wpm());
+    oled_set_cursor(5,3);
     oled_write(wpm_str, false);
 }
 

@@ -1,7 +1,7 @@
 #include "rev1.h"
-#include "quantum/rgb_matrix.h"
 
 #ifdef RGB_MATRIX_ENABLE
+#include "quantum/rgb_matrix.h"
 
   /*
     Physical Layout
@@ -78,11 +78,9 @@ led_config_t g_led_config = { {
     4, 4, 4, 4, 4, 4,
     4, 4, 4, 4, 4,
 } };
-#endif
 
 void matrix_init_kb(void) {
 
-#ifdef RGB_MATRIX_ENABLE
     if (!is_keyboard_master()) {
         g_led_config = (led_config_t){ {
             {  34,  33,  32,  31,  30,  29 },
@@ -119,6 +117,6 @@ void matrix_init_kb(void) {
             4, 4, 4, 4, 4,
         } };
     }
-#endif
     matrix_init_user();
 }
+#endif

@@ -47,6 +47,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #    define RGBLED_NUM 58  // Number of LEDs
 #    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define SPLIT_TRANSPORT_MIRROR
 #    define RGB_MATRIX_SPLIT { 29, 29 }
 #endif
 

@@ -1,7 +1,7 @@
 #include "rev1.h"
 
 #ifdef RGB_MATRIX_ENABLE
-#include "quantum/rgb_matrix.h"
+// #include "quantum/rgb_matrix.h"
 
   /*
     Physical Layout

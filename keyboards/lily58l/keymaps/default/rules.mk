@@ -1,5 +1,5 @@
 OLED_DRIVER_ENABLE = yes   # Enables the use of OLED displays
-ENCODER_ENABLE = yes       # ENables the use of one or more encoders
+ENCODER_ENABLE = no       # ENables the use of one or more encoders
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB light
 WPM_ENABLE = yes
 # uncomment to the line to customize the setting

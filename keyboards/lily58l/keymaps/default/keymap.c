@@ -3,9 +3,11 @@
 
 enum layers {
     _QWERTY = 0,
+    _GAME,
     _LOWER,
     _RAISE,
-    _ADJUST
+    _ADJUST,
+    _LOWERGAME
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -31,6 +33,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NUBS,  KC_INS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  MT(MOD_LSFT,KC_ENT), \
      KC_LCTRL, MT(MOD_LALT,KC_LGUI), LT(_LOWER, KC_SPC),KC_BSPC,  KC_SPC, LT(_RAISE, KC_BSPC),  MT(MOD_RALT,KC_LEFT), KC_RIGHT \
+),
+/* GAME
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  '   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |   T  |  Tab |   Q  |   W  |   E  |   R  |                    |   Y  |   U  |   I  |   O  |   P  |  +   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |   G  | Shif |   A  |   S  |   D  |   F  |-------.    ,-------|   H  |   J  |   K  |   L  |   Ñ  |  ´   |
+ * |------+------+------+------+------+------|   <   |    |  Ins  |------+------+------+------+------+------|
+ * |   B  | Ctrl |   Z  |   X  |   C  |   V  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShEnt|
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |Toggl | Win  | Alt  | / Space /       \Space \  |BSpace| Left | Right|
+ *                   |      |LowerG|      |/       /         \      \ |RAISE |AltGr |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+
+ [_GAME] = LAYOUT( \
+  KC_ESC,   KC_1,     KC_2,   KC_3,    KC_4,   KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
+  KC_T,     KC_TAB,   KC_Q,   KC_W,    KC_E,   KC_R,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC, \
+  KC_G,     KC_LSFT,  KC_A,   KC_S,    KC_D,   KC_F,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_B,    KC_LCTRL,  KC_Z,   KC_X,    KC_C,   KC_V,  KC_NUBS,  KC_INS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  MT(MOD_LSFT,KC_ENT), \
+           TG(_GAME), LT(_LOWERGAME, KC_LGUI), KC_LALT,KC_SPC,  KC_SPC, LT(_RAISE, KC_BSPC),  MT(MOD_RALT,KC_LEFT), KC_RIGHT \
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -92,11 +116,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT( \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_NLCK, KC_P7, KC_P8, KC_P9,   KC_PPLS, XXXXXXX,      \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_P4, KC_P5, KC_P6,   KC_PMNS, XXXXXXX,  \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,TG(_GAME),XXXXXXX,                   XXXXXXX, KC_P4, KC_P5, KC_P6,   KC_PMNS, XXXXXXX,  \
   XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,                   XXXXXXX, KC_P1, KC_P2, KC_P3,   KC_PAST, KC_PENT,  \
   XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P0, KC_P0, KC_PDOT, KC_PSLS, XXXXXXX,\
                              _______, _______, _______, _______, _______, _______, _______, _______ \
-  )
+  ),
+    /* LOWERGAME
+    * ,-----------------------------------------.                    ,-----------------------------------------.
+    * |      |   6  |   7  |   8  |   9  |   0  |                    |   6  |   7  |   8  |   9  |   0  |  '   |
+    * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+    * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+    * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+    * |      |      |      |      |      |      |-------.    ,-------|      |      |      |      |      |      |
+    * |------+------+------+------+------+------|   <   |    |  Ins  |------+------+------+------+------+------|
+    * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+    * `-----------------------------------------/       /     \      \-----------------------------------------'
+    *                   |Toggl | Win  |Space | / Space /       \Space \  |BSpace| Left | Right|
+    *                   |      | Alt  | Lower|/       /         \      \ |RAISE |AltGr |      |
+    *                   `----------------------------'           '------''--------------------'
+    */
+
+    [_LOWERGAME] = LAYOUT( \
+    _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                   _______, _______, _______, _______, _______, _______, \
+    KC_CAPS,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                   _______, _______, _______, _______, _______, _______, \
+    _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                   _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______,  KC_F11,  KC_F12, _______, _______, _______, _______, _______, _______, _______, _______, \
+                               _______, _______, _______, _______, _______, _______, _______, _______ \
+    )
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -240,6 +286,9 @@ static void render_status(void) {
         case _QWERTY:
             oled_write_P(PSTR("Default\n"), false);
             break;
+        case _GAME:
+            oled_write_P(PSTR("Game\n"), false);
+            break;
         case _LOWER:
             oled_write_P(PSTR("Lower\n"), false);
             break;
@@ -248,6 +297,9 @@ static void render_status(void) {
             break;
         case _ADJUST:
             oled_write_P(PSTR("Adjust\n"), false);
+            break;
+        case _LOWERGAME:
+            oled_write_P(PSTR("Game Low\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);

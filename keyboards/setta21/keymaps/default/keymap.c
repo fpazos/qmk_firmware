@@ -14,6 +14,7 @@ extern uint8_t is_master;
 // entirely and just use numbers.
 enum layer_number {
   _BASE,
+  _MEDIA,
   _ARROW,
   _ADJUST,
 };
@@ -21,7 +22,7 @@ enum layer_number {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_numpad_6x4(
       //,-----------------------------------|
-LT(_ADJUST,KC_ESC),  KC_F2,  KC_EQL,  KC_DEL,
+       KC_ESC, TG(_MEDIA), KC_EQL,  KC_BSPC,
       //|--------+--------+--------+--------|
           KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
       //|--------+--------+--------+--------|
@@ -35,17 +36,33 @@ LT(_ADJUST,KC_ESC),  KC_F2,  KC_EQL,  KC_DEL,
       //`-----------------------------------'
   ),
 
+  [_MEDIA] = LAYOUT_numpad_6x4(
+      //,-----------------------------------|
+          KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT,
+      //|--------+--------+--------+--------|
+           KC_F13,  KC_F14, KC_MUTE, KC_VOLD,
+      //|--------+--------+--------+--------|
+           KC_F16,  KC_F17,  KC_F18, KC_VOLU,
+      //|--------+--------+--------+--------|
+           KC_F19,  KC_F20,  KC_F21,
+      //|--------+--------+--------+--------|
+       TG(_MEDIA), _______, _______, _______,
+      //|--------+--------+--------+--------|
+             MO(_ADJUST),    _______
+      //`-----------------------------------'
+  ),
+
   [_ARROW] = LAYOUT_numpad_6x4(
       //,-----------------------------------|
            KC_ESC, _______, _______, _______,
       //|--------+--------+--------+--------|
-          XXXXXXX, _______, _______, _______,
+          _______, _______, _______, KC_PGUP,
       //|--------+--------+--------+--------|
-          XXXXXXX,   KC_UP, XXXXXXX, _______,
+          KC_HOME,   KC_UP,  KC_END, KC_PGDN,
       //|--------+--------+--------+--------|
           KC_LEFT, KC_DOWN,KC_RIGHT,
       //|--------+--------+--------+--------|
-          XXXXXXX, KC_DOWN, XXXXXXX, _______,
+          _______, KC_DOWN, _______, _______,
       //|--------+--------+--------+--------|
              MO(_ARROW),    _______
       //`-----------------------------------'
@@ -63,7 +80,7 @@ LT(_ADJUST,KC_ESC),  KC_F2,  KC_EQL,  KC_DEL,
       //|--------+--------+--------+--------|
           RGB_VAD, RGB_VAI, XXXXXXX, RGB_MOD,
       //|--------+--------+--------+--------|
-              XXXXXXX,      XXXXXXX
+                MO(_ADJUST),      XXXXXXX
       //`-----------------------------------'
   )
 };

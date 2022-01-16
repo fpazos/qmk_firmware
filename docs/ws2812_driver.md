@@ -49,6 +49,19 @@ WS2812_DRIVER = bitbang
 
 !> This driver is not hardware accelerated and may not be performant on heavily loaded systems.
 
+#### Adjusting bit timings
+
+The WS2812 LED communication topology depends on a serialized timed window. Different versions of the addressable LEDs have differing requirements for the timing parameters, for instance, of the SK6812.
+You can tune these parameters through the definition of the following macros:
+
+| Macro               |Default                                     | AVR                | ARM                |
+|---------------------|--------------------------------------------|--------------------|--------------------|
+|`WS2812_TIMING`      |`1250`                                      | :heavy_check_mark: | :heavy_check_mark: |
+|`WS2812_T0H`         |`350`                                       | :heavy_check_mark: | :heavy_check_mark: |
+|`WS2812_T0L`         |`WS2812_TIMING - WS2812_T0H`                |                    | :heavy_check_mark: |
+|`WS2812_T1H`         |`900`                                       | :heavy_check_mark: | :heavy_check_mark: |
+|`WS2812_T1L`         |`WS2812_TIMING - WS2812_T1H`                |                    | :heavy_check_mark: |
+
 ### I2C
 Targeting boards where WS2812 support is offloaded to a 2nd MCU. Currently the driver is limited to AVR given the known consumers are ps2avrGB/BMC. To configure it, add this to your rules.mk:
 
@@ -72,7 +85,9 @@ WS2812_DRIVER = spi
 Configure the hardware via your config.h:
 ```c
 #define WS2812_SPI SPID1 // default: SPID1
-#define WS2812_SPI_MOSI_PAL_MODE 5 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
+#define WS2812_SPI_MOSI_PAL_MODE 5 // MOSI pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
+#define WS2812_SPI_SCK_PIN B3 // Required for F072, may be for others -- SCK pin, see the respective datasheet for the appropriate values for your MCU. default: unspecified
+#define WS2812_SPI_SCK_PAL_MODE 5 // SCK pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
 ```
 
 You must also turn on the SPI feature in your halconf.h and mcuconf.h
@@ -100,11 +115,11 @@ Only divisors of 2, 4, 8, 16, 32, 64, 128 and 256 are supported by hardware.
 
 While not an exhaustive list, the following table provides the scenarios that have been partially validated:
 
-| | SPI1 | SPI2 | SPI3 |
-|-|-|-|-|
-| f072 | ? | B15 :heavy_check_mark: | N/A |
-| f103 | A7 :heavy_check_mark: | B15 :heavy_check_mark: | N/A |
-| f303 | A7 :heavy_check_mark: B5 :heavy_check_mark:  | B15 :heavy_check_mark: | B5 :heavy_check_mark: |
+|      | SPI1                                        | SPI2                                    | SPI3                  |
+|------|---------------------------------------------|-----------------------------------------|-----------------------|
+| f072 | ?                                           | B15 :heavy_check_mark: (needs SCK: B13) | N/A                   |
+| f103 | A7 :heavy_check_mark:                       | B15 :heavy_check_mark:                  | N/A                   |
+| f303 | A7 :heavy_check_mark: B5 :heavy_check_mark: | B15 :heavy_check_mark:                  | B5 :heavy_check_mark: |
 
 *Other supported ChibiOS boards and/or pins may function, it will be highly chip and configuration dependent.*
 

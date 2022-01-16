@@ -19,7 +19,3 @@
         4
 } };// 0, 40, 80, 120, 160, 224    // 0, 21, 43, 64
 #endif
-
-void matrix_init_kb(void) {
-	matrix_init_user();
-};

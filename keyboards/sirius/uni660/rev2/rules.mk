@@ -17,10 +17,9 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
-CUSTOM_MATRIX = lite
+CUSTOM_MATRIX = yes
 
 # project specific files
-SRC += matrix.c
-QUANTUM_LIB_SRC += uart.c
+SRC += matrix.c serial_uart.c
 
 DEFAULT_FOLDER = sirius/uni660/rev2/ansi

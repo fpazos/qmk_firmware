@@ -165,6 +165,7 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
     }
 }
 
+bool debounce_active(void) { return true; }
 #else
 #    include "none.c"
 #endif

@@ -2,7 +2,7 @@
 MCU = atmega32a
 
 # Bootloader selection
-BOOTLOADER = bootloadhid
+BOOTLOADER = atmel-dfu
 
 # Build Options
 #   change yes to no to disable

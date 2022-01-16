@@ -109,10 +109,6 @@ extern layer_state_t layer_state;
 #    include "process_unicodemap.h"
 #endif
 
-#ifdef UNICODE_COMMON_ENABLE
-#    include "process_unicode_common.h"
-#endif
-
 #ifdef KEY_OVERRIDE_ENABLE
 #    include "process_key_override.h"
 #endif

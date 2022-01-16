@@ -52,4 +52,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OLED_DISPLAY_128X64
 
+#define POINTING_DEVICE_TASK_THROTTLE
 #define POINTING_DEVICE_RIGHT

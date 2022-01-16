@@ -143,9 +143,6 @@ ifneq ($(findstring STM32F042, $(MCU)),)
   # This ensures that the EEPROM page buffer fits into RAM
   USE_PROCESS_STACKSIZE = 0x600
   USE_EXCEPTIONS_STACKSIZE = 0x300
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFFC400
 endif
 
 ifneq ($(findstring STM32F072, $(MCU)),)
@@ -178,9 +175,6 @@ ifneq ($(findstring STM32F072, $(MCU)),)
 
   # UF2 settings
   UF2_FAMILY ?= STM32F0
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFFC800
 endif
 
 ifneq ($(findstring STM32F103, $(MCU)),)
@@ -245,9 +239,6 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   # UF2 settings
   UF2_FAMILY ?= STM32F3
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFFD800
 endif
 
 ifneq ($(findstring STM32F401, $(MCU)),)
@@ -285,9 +276,6 @@ ifneq ($(findstring STM32F401, $(MCU)),)
 
   # UF2 settings
   UF2_FAMILY ?= STM32F4
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
 ifneq ($(findstring STM32F405, $(MCU)),)
@@ -320,9 +308,6 @@ ifneq ($(findstring STM32F405, $(MCU)),)
 
   # UF2 settings
   UF2_FAMILY ?= STM32F4
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
 ifneq ($(findstring STM32F407, $(MCU)),)
@@ -355,9 +340,6 @@ ifneq ($(findstring STM32F407, $(MCU)),)
 
   # UF2 settings
   UF2_FAMILY ?= STM32F4
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
 ifneq ($(findstring STM32F411, $(MCU)),)
@@ -395,9 +377,6 @@ ifneq ($(findstring STM32F411, $(MCU)),)
 
   # UF2 settings
   UF2_FAMILY ?= STM32F4
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
 ifneq ($(findstring STM32F446, $(MCU)),)
@@ -427,9 +406,6 @@ ifneq ($(findstring STM32F446, $(MCU)),)
   BOARD ?= GENERIC_STM32_F446XE
 
   USE_FPU ?= yes
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
 ifneq ($(findstring STM32G431, $(MCU)),)
@@ -462,9 +438,6 @@ ifneq ($(findstring STM32G431, $(MCU)),)
 
   # UF2 settings
   UF2_FAMILY ?= STM32G4
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
 ifneq ($(findstring STM32G474, $(MCU)),)
@@ -497,9 +470,6 @@ ifneq ($(findstring STM32G474, $(MCU)),)
 
   # UF2 settings
   UF2_FAMILY ?= STM32G4
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
 ifneq (,$(filter $(MCU),STM32L433 STM32L443))
@@ -534,9 +504,6 @@ ifneq (,$(filter $(MCU),STM32L433 STM32L443))
 
   # UF2 settings
   UF2_FAMILY ?= STM32L4
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
 ifneq (,$(filter $(MCU),STM32L412 STM32L422))
@@ -571,9 +538,6 @@ ifneq (,$(filter $(MCU),STM32L412 STM32L422))
 
   # UF2 settings
   UF2_FAMILY ?= STM32L4
-
-  # Bootloader address for STM32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
 ifneq ($(findstring WB32F3G71, $(MCU)),)
@@ -603,10 +567,6 @@ ifneq ($(findstring WB32F3G71, $(MCU)),)
   BOARD ?= GENERIC_WB32_F3G71XX
 
   USE_FPU ?= no
-
-  # Bootloader address for WB32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFFE000
-  WB32_BOOTLOADER_ADDRESS ?= 0x1FFFE000
 endif
 
 ifneq ($(findstring GD32VF103, $(MCU)),)

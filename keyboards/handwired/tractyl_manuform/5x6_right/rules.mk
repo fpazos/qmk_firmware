@@ -18,4 +18,6 @@ MOUSE_SHARED_EP = yes
 
 SPLIT_KEYBOARD = yes
 
+QUANTUM_LIB_SRC += tm_sync.c
+
 DEFAULT_FOLDER = handwired/tractyl_manuform/5x6_right/teensy2pp

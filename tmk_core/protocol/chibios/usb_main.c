@@ -734,7 +734,7 @@ void init_usb_driver(USBDriver *usbp) {
      * after a reset.
      */
     usbDisconnectBus(usbp);
-    wait_ms(50);
+    wait_ms(1500);
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
 

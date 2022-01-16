@@ -16,4 +16,12 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-SPLIT_KEYBOARD = yes		# Split keyboard flag disabled as manual edits had to be done to the split common files
+USE_I2C = no                # I2C for split communication
+CUSTOM_MATRIX = yes			# For providing custom matrix.c (in this case, override regular matrix.c with split matrix.c)
+# SPLIT_KEYBOARD = yes		# Split keyboard flag disabled as manual edits had to be done to the split common files
+
+SRC += split_util.c \
+	   split_flags.c \
+	   serial.c \
+	   transport.c \
+	   matrix.c

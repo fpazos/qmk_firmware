@@ -215,9 +215,6 @@
                   LAYOUT: 'LAYOUT_all'
           }
     },
-    idobo: {
-        target: 'idobao/id75'
-    },
     'jj40': {
           target: 'kprepublic/jj40'
     },
@@ -553,7 +550,7 @@
           target: 'xelus/valor/rev1'
     },
     yd60mq: {
-          target: 'ymdk/yd60mq/12led'
+          target: 'yd60mq/12led'
     },
     ymd75: {
           target: 'ymd75/rev1'

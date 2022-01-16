@@ -18,5 +18,4 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 
 # # project specific files
-SRC += matrix.c
-QUANTUM_LIB_SRC += uart.c
+SRC += matrix.c serial_uart.c

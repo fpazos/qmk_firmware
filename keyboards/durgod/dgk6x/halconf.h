@@ -19,7 +19,4 @@
 #ifdef RGB_MATRIX_ENABLE
 #define HAL_USE_I2C TRUE
 #endif
-
-#define HAL_USE_GPT TRUE
-
 #include_next <halconf.h>

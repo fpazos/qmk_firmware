@@ -4,7 +4,7 @@ TMK_COMMON_SRC +=	\
 	$(PLATFORM_COMMON_DIR)/platform.c \
 	$(PLATFORM_COMMON_DIR)/suspend.c \
 	$(PLATFORM_COMMON_DIR)/timer.c \
-	$(PLATFORM_COMMON_DIR)/bootloaders/$(BOOTLOADER_TYPE).c
+	$(PLATFORM_COMMON_DIR)/bootloader.c \
 
 # Search Path
 VPATH += $(PLATFORM_PATH)

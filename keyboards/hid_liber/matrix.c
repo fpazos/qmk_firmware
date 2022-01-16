@@ -218,6 +218,12 @@ uint8_t matrix_scan(void)
     return 1;
 }
 
+bool matrix_is_modified(void)
+{
+    // NOTE: no longer used
+    return true;
+}
+
 inline
 bool matrix_has_ghost(void)
 {

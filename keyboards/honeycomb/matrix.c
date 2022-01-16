@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "honeycomb.h"
 #include "pointing_device.h"
 #include "report.h"
-#include "uart.h"
+#include "protocol/serial.h"
 
 #if (MATRIX_COLS <= 8)
 # define print_matrix_header()  print("\nr/c 01234567\n")
@@ -95,7 +95,7 @@ uint8_t matrix_cols(void) {
 void matrix_init(void) {
 
     matrix_init_quantum();
-    uart_init(1000000);
+    serial_init();
 }
 
 uint8_t matrix_scan(void)
@@ -103,7 +103,7 @@ uint8_t matrix_scan(void)
     uint32_t timeout = 0;
 
     // The 's' character requests the RF slave to send the matrix
-    uart_write('s');
+    SERIAL_UART_DATA = 's';
 
     // Trust the external keystates entirely, erase the last data
     uint8_t uart_data[4] = {0};
@@ -113,14 +113,14 @@ uint8_t matrix_scan(void)
         // Wait for the serial data, timeout if it's been too long
         // This only happened in testing with a loose wire, but does no
         // harm to leave it in here
-        while(!uart_available()){
+        while(!SERIAL_UART_RXD_PRESENT){
             timeout++;
             if (timeout > 10000){
                 xprintf("\r\nTime out in keyboard.");
                 break;
             }
         }
-        uart_data[i] = uart_read();
+        uart_data[i] = SERIAL_UART_DATA;
     }
 
     // Check for the end packet, it's our checksum.

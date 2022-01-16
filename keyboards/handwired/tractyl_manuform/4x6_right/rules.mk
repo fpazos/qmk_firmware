@@ -21,7 +21,9 @@ RGB_MATRIX_DRIVER = WS2812
 
 
 POINTING_DEVICE_ENABLE = yes
-POINTING_DEVICE_DRIVER = pmw3360
-MOUSE_SHARED_EP = yes
+MOUSE_SHARED_EP = no
 
 SPLIT_KEYBOARD = yes
+
+SRC += drivers/sensors/pmw3360.c
+QUANTUM_LIB_SRC += spi_master.c tm_sync.c

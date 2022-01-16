@@ -48,6 +48,7 @@ void TestFixture::SetUpTestCase() {
     eeconfig_update_debug(debug_config.raw);
 
     TestDriver driver;
+    EXPECT_CALL(driver, send_keyboard_mock(_));
     keyboard_init();
 
     test_logger.info() << "TestFixture setup-up end." << std::endl;
@@ -60,6 +61,8 @@ TestFixture::TestFixture() { m_this = this; }
 TestFixture::~TestFixture() {
     test_logger.info() << "TestFixture clean-up start." << std::endl;
     TestDriver driver;
+
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(2);
 
     /* Reset keyboard state. */
     clear_all_keys();

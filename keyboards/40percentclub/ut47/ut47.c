@@ -15,11 +15,7 @@
  */
 #include "ut47.h"
 #ifdef LED_ENABLE
-  #include "uart.h"
-
-void matrix_init_kb() {
-  uart_init(9600);
-}
+  #include "protocol/serial.h"
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -27,7 +23,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	// runs for every action, just before processing by the firmware
   if (record->event.pressed) {
     #ifdef LED_ENABLE
-      uart_write((record->event.key.row*16)+record->event.key.col);
+      serial_send((record->event.key.row*16)+record->event.key.col);
     #endif
   }
 	return process_record_user(keycode, record);

@@ -1,4 +1,4 @@
-BACKLIGHT_ENABLE = yes
+BACKLIGHT_ENABLE = no
 
 LAYOUTS = ortho_5x14
 

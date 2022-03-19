@@ -3,6 +3,7 @@
 
 enum layers {
     _QWERTY = 0,
+    _MAC,
     _LOWER,
     _RAISE,
     _ADJUST
@@ -32,6 +33,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NUBS,  KC_INS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  MT(MOD_LSFT,KC_ENT), \
      KC_LCTRL, MT(MOD_LALT,KC_LGUI), LT(_LOWER, KC_SPC),KC_BSPC,  KC_SPC, LT(_RAISE, KC_BSPC),  MT(MOD_RALT,KC_LEFT), KC_RIGHT \
 ),
+/* MAC
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  '   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |   T  |  Tab |   Q  |   W  |   E  |   R  |                    |   Y  |   U  |   I  |   O  |   P  |  +   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |   G  | Shif |   A  |   S  |   D  |   F  |-------.    ,-------|   H  |   J  |   K  |   L  |   Ñ  |  ´   |
+ * |------+------+------+------+------+------|   <   |    |  Ins  |------+------+------+------+------+------|
+ * |   B  | Ctrl |   Z  |   X  |   C  |   V  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShEnt|
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |Toggl | Win  | Alt  | / Space /       \Space \  |BSpace| Left | Right|
+ *                   |      |LowerG|      |/       /         \      \ |RAISE |Option |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+
+ [_MAC] = LAYOUT( \
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
+  KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC, \
+  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NUBS,  KC_INS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  MT(MOD_LSFT,KC_ENT), \
+                KC_LCTL, KC_LGUI, LT(_LOWER, KC_SPC),KC_BSPC,  KC_SPC, LT(_RAISE, KC_BSPC),  KC_RALT, KC_LALT \
+),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | F12  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
@@ -48,10 +71,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT( \
   KC_F12, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                              KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, \
-  KC_CAPS, _______, ALGR(KC_1), KC_CIRC, RSFT(KC_1), C(KC_F5),                                  _______, RALT(KC_PSCR), RALT(KC_3), RALT(KC_2), KC_EQL, KC_LBRC,\
+  KC_CAPS, RSFT(KC_0), ALGR(KC_1), KC_CIRC, RSFT(KC_1), C(KC_F5),                                  _______, RALT(KC_PSCR), RALT(KC_3), RALT(KC_2), KC_EQL, KC_LBRC,\
   _______, RALT(KC_4), RALT(KC_QUOT),RALT(KC_LBRC),RSFT(KC_8),KC_MINS,                            KC_AT, RSFT(KC_9), ALGR(KC_RBRC), ALGR(KC_NUHS), _______, KC_NUHS, \
   _______, RSFT(KC_5), RSFT(KC_RBRC), KC_SLSH, KC_RBRC, RSFT(KC_7), ALGR(KC_GRV),      KC_PSCR, C(KC_S), C(KC_Z), C(KC_Y), C(KC_V), C(KC_C), C(KC_X), \
-                                    _______, _______, _______, KC_DEL,                    _______, _______, _______, _______\
+                                    _______, _______, _______, KC_DEL,                    KC_DEL, _______, _______, _______\
 ),
 
 /* RAISE
@@ -92,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT( \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_NLCK, KC_P7, KC_P8, KC_P9,   KC_PPLS, XXXXXXX,      \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_P4, KC_P5, KC_P6,   KC_PMNS, XXXXXXX,  \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG(_MAC),XXXXXXX,                   XXXXXXX, KC_P4, KC_P5, KC_P6,   KC_PMNS, XXXXXXX,  \
   XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,                   XXXXXXX, KC_P1, KC_P2, KC_P3,   KC_PAST, KC_PENT,  \
   XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P0, KC_P0, KC_PDOT, KC_PSLS, XXXXXXX,\
                              _______, _______, _______, _______, _______, _______, _______, _______ \
@@ -239,6 +262,9 @@ static void render_status(void) {
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
             oled_write_P(PSTR("Default\n"), false);
+            break;
+        case _MAC:
+            oled_write_P(PSTR("Mac\n"), false);
             break;
         case _LOWER:
             oled_write_P(PSTR("Lower\n"), false);

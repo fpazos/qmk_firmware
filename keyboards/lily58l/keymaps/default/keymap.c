@@ -4,6 +4,7 @@
 enum layers {
     _QWERTY = 0,
     _GAME,
+    _MAC,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -29,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_QWERTY] = LAYOUT( \
   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
-  KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC, \
+  KC_CAPS,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC, \
   KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NUBS,  KC_INS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  MT(MOD_LSFT,KC_ENT), \
      KC_LCTRL, MT(MOD_LALT,KC_LGUI), LT(_LOWER, KC_SPC),KC_BSPC,  KC_SPC, LT(_RAISE, KC_BSPC),  MT(MOD_RALT,KC_LEFT), KC_RIGHT \
@@ -50,11 +51,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_GAME] = LAYOUT( \
-  KC_ESC,   KC_1,     KC_2,   KC_3,    KC_4,   KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
-  KC_T,     KC_TAB,   KC_Q,   KC_W,    KC_E,   KC_R,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC, \
-  KC_G,     KC_LSFT,  KC_A,   KC_S,    KC_D,   KC_F,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_B,    KC_LCTRL,  KC_Z,   KC_X,    KC_C,   KC_V,  KC_NUBS,  KC_INS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  MT(MOD_LSFT,KC_ENT), \
-           TG(_GAME), LT(_LOWERGAME, KC_LGUI), KC_LALT,KC_SPC,  KC_SPC, LT(_RAISE, KC_BSPC),  MT(MOD_RALT,KC_LEFT), KC_RIGHT \
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
+  KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC, \
+  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NUBS,  TG(_GAME),,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  MT(MOD_LSFT,KC_ENT), \
+           KC_LCTRL, LT(_LOWERGAME, KC_LGUI), KC_LALT,KC_SPC,  KC_SPC, LT(_RAISE, KC_BSPC),  MT(MOD_RALT,KC_LEFT), KC_RIGHT \
+),
+/* MAC
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  '   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |   T  |  Tab |   Q  |   W  |   E  |   R  |                    |   Y  |   U  |   I  |   O  |   P  |  +   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |   G  | Shif |   A  |   S  |   D  |   F  |-------.    ,-------|   H  |   J  |   K  |   L  |   Ñ  |  ´   |
+ * |------+------+------+------+------+------|   <   |    |  Ins  |------+------+------+------+------+------|
+ * |   B  | Ctrl |   Z  |   X  |   C  |   V  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShEnt|
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |Toggl | Win  | Alt  | / Space /       \Space \  |BSpace| Left | Right|
+ *                   |      |LowerG|      |/       /         \      \ |RAISE |Option |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+
+ [_MAC] = LAYOUT( \
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
+  KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC, \
+  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NUBS,  KC_INS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  MT(MOD_LSFT,KC_ENT), \
+     KC_LCTRL, MT(MOD_LALT,KC_LGUI), LT(_LOWER, KC_SPC),KC_BSPC,  KC_SPC, LT(_RAISE, KC_BSPC),  MT(MOD_RALT,KC_LEFT), KC_RIGHT \
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -72,10 +95,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT( \
   KC_F12, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                              KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, \
-  KC_CAPS, _______, ALGR(KC_1), KC_CIRC, RSFT(KC_1), C(KC_F5),                                  _______, RALT(KC_PSCR), RALT(KC_3), RALT(KC_2), KC_EQL, KC_LBRC,\
+  KC_CAPS, RSFT(KC_0), ALGR(KC_1), KC_CIRC, RSFT(KC_1), C(KC_F5),                                  _______, RALT(KC_PSCR), RALT(KC_3), RALT(KC_2), KC_EQL, KC_LBRC,\
   _______, RALT(KC_4), RALT(KC_QUOT),RALT(KC_LBRC),RSFT(KC_8),KC_MINS,                            KC_AT, RSFT(KC_9), ALGR(KC_RBRC), ALGR(KC_NUHS), _______, KC_NUHS, \
   _______, RSFT(KC_5), RSFT(KC_RBRC), KC_SLSH, KC_RBRC, RSFT(KC_7), ALGR(KC_GRV),      KC_PSCR, C(KC_S), C(KC_Z), C(KC_Y), C(KC_V), C(KC_C), C(KC_X), \
-                                    _______, _______, _______, KC_DEL,                    _______, _______, _______, _______\
+                                    _______, _______, _______, KC_DEL,                    KC_DEL, _______, _______, _______\
 ),
 
 /* RAISE
@@ -121,28 +144,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P0, KC_P0, KC_PDOT, KC_PSLS, XXXXXXX,\
                              _______, _______, _______, _______, _______, _______, _______, _______ \
   ),
-    /* LOWERGAME
-    * ,-----------------------------------------.                    ,-----------------------------------------.
-    * |      |   6  |   7  |   8  |   9  |   0  |                    |   6  |   7  |   8  |   9  |   0  |  '   |
-    * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-    * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
-    * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-    * |      |      |      |      |      |      |-------.    ,-------|      |      |      |      |      |      |
-    * |------+------+------+------+------+------|   <   |    |  Ins  |------+------+------+------+------+------|
-    * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
-    * `-----------------------------------------/       /     \      \-----------------------------------------'
-    *                   |Toggl | Win  |Space | / Space /       \Space \  |BSpace| Left | Right|
-    *                   |      | Alt  | Lower|/       /         \      \ |RAISE |AltGr |      |
-    *                   `----------------------------'           '------''--------------------'
-    */
+  /* LOWERGAME
+  * ,-----------------------------------------.                    ,-----------------------------------------.
+  * |      |   6  |   7  |   8  |   9  |   0  |                    |   6  |   7  |   8  |   9  |   0  |  '   |
+  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+  * |      |      |      |      |      |      |-------.    ,-------|      |      |      |      |      |      |
+  * |------+------+------+------+------+------|   <   |    |  Ins  |------+------+------+------+------+------|
+  * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+  * `-----------------------------------------/       /     \      \-----------------------------------------'
+  *                   |Toggl | Win  |Space | / Space /       \Space \  |BSpace| Left | Right|
+  *                   |      | Alt  | Lower|/       /         \      \ |RAISE |AltGr |      |
+  *                   `----------------------------'           '------''--------------------'
+  */
 
-    [_LOWERGAME] = LAYOUT( \
-    _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                   _______, _______, _______, _______, _______, _______, \
-    KC_CAPS,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                   _______, _______, _______, _______, _______, _______, \
-    _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                   _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______,  KC_F11,  KC_F12, _______, _______, _______, _______, _______, _______, _______, _______, \
-                               _______, _______, _______, _______, _______, _______, _______, _______ \
-    )
+  [_LOWERGAME] = LAYOUT( \
+  _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                   _______, _______, _______, _______, _______, _______, \
+  KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                   _______, _______, _______, _______, _______, _______, \
+  _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                   _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______,  KC_F11,  KC_F12, _______, _______, _______, _______, _______, _______, _______, _______, \
+                              _______, _______, _______, _______, _______, _______, _______, _______ \
+  )
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {

@@ -2,7 +2,7 @@
 
 Pointing Device is a generic name for a feature intended to be generic: moving the system pointer around.  There are certainly other options for it - like mousekeys - but this aims to be easily modifiable and hardware driven.  You can implement custom keys to control functionality, or you can gather information from other peripherals and insert it directly here - let QMK handle the processing for you.
 
-To enable Pointing Device, uncomment the following line in your rules.mk:
+To enable Pointing Device, add the following line in your rules.mk and specify one of the driver options below.
 
 ```make
 POINTING_DEVICE_ENABLE = yes
@@ -40,13 +40,13 @@ POINTING_DEVICE_DRIVER = adns9800
 
 The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surface tracking. 
 
-| Setting                | Description                                                            | Default       |
-|------------------------|------------------------------------------------------------------------|---------------|
-|`ADNS9800_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `2000000`     |
-|`ADNS9800_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`       |
-|`ADNS9800_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `3`           |
-|`ADNS9800_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_      |
-|`ADNS9800_CS_PIN`       | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
+| Setting                        | Description                                                            | Default       |
+|--------------------------------|------------------------------------------------------------------------|---------------|
+|`ADNS9800_CLOCK_SPEED`          | (Optional) Sets the clock speed that the sensor runs at.               | `2000000`     |
+|`ADNS9800_SPI_LSBFIRST`         | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`       |
+|`ADNS9800_SPI_MODE`             | (Optional) Sets the SPI Mode for the sensor.                           | `3`           |
+|`ADNS9800_SPI_DIVISOR`          | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_      |
+|`ADNS9800_CS_PIN`               | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
 
 
 The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI. 
@@ -150,8 +150,8 @@ The PMW 3360 is an SPI driven optical sensor, that uses a built in IR LED for su
 |`PMW3360_SPI_MODE`               | (Optional) Sets the SPI Mode for the sensor.                                               | `3`           |
 |`PMW3360_SPI_DIVISOR`            | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
 |`PMW3360_LIFTOFF_DISTANCE`       | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
-|`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor. | `0`           |
-|`PMW3360_LEGACY_FIRMWARE_UPLOAD` | (Optional) Switches to older, manual upload of firmware, for compatibility.                | _not defined_     |
+|`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor.| `0`           |
+|`PMW3360_FIRMWARE_UPLOAD_FAST`   | (Optional) Skips the 15us wait between firmware blocks.                                    | _not defined_ |
 
 The CPI range is 100-12000, in increments of 100. Defaults to 1600 CPI.
 
@@ -174,13 +174,20 @@ The PMW 3389 is an SPI driven optical sensor, that uses a built in IR LED for su
 |`PMW3389_SPI_DIVISOR`            | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
 |`PMW3389_LIFTOFF_DISTANCE`       | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
 |`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 30 degrees directly in the sensor. | `0`           |
+|`PMW3389_FIRMWARE_UPLOAD_FAST`   | (Optional) Skips the 15us wait between firmware blocks.                                    | _not defined_ |
 
 The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 
 
 ### Custom Driver
 
-If you have a sensor type that isn't supported here, you can manually implement it, by adding these functions (with the correct implementation for your device):
+If you have a sensor type that isn't supported above, a custom option is available by adding the following to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = custom
+```
+
+Using the custom driver will require implementing the following functions:
 
 ```c
 void           pointing_device_driver_init(void) {}
@@ -203,7 +210,7 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 |`POINTING_DEVICE_MOTION_PIN`      | (Optional) If supported, will only read from sensor if pin is active. | _not defined_     |
 |`POINTING_DEVICE_TASK_THROTTLE_MS`      | (Optional) Limits the frequency that the sensor is polled for motion. | _not defined_     |
 
-!> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and would recommend `POINTING_DEVICE_TASK_THROTTLE_MS` be set to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
+!> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
 
 
 ## Split Keyboard Configuration
@@ -238,7 +245,7 @@ The following configuration options are only available when using `SPLIT_POINTIN
 | `pointing_device_get_report(void)`                         | Returns the current mouse report (as a `mouse_report_t` data structure).                                      | 
 | `pointing_device_set_report(mouse_report)`                 | Sets the mouse report to the assigned `mouse_report_t` data structured passed to the function.                | 
 | `pointing_device_send(void)`                               | Sends the current mouse report to the host system.  Function can be replaced.                                 | 
-| `has_mouse_report_changed(old, new)`                       | Compares the old and new `mouse_report_t` data and returns true only if it has changed.                       |
+| `has_mouse_report_changed(new_report, old_report)`         | Compares the old and new `mouse_report_t` data and returns true only if it has changed.                       |
 | `pointing_device_adjust_by_defines(mouse_report)`          | Applies rotations and invert configurations to a raw mouse report.                                             |
 
 
@@ -269,14 +276,14 @@ The report_mouse_t (here "mouseReport") has the following properties:
 To manually manipulate the mouse reports outside of the `pointing_device_task_*` functions, you can use:
 
 * `pointing_device_get_report()` - Returns the current report_mouse_t that represents the information sent to the host computer
-* `pointing_device_set_report(report_mouse_t newMouseReport)` - Overrides and saves the report_mouse_t to be sent to the host computer
+* `pointing_device_set_report(report_mouse_t mouse_report)` - Overrides and saves the report_mouse_t to be sent to the host computer
 * `pointing_device_send()` - Sends the mouse report to the host and zeroes out the report. 
 
 When the mouse report is sent, the x, y, v, and h values are set to 0 (this is done in `pointing_device_send()`, which can be overridden to avoid this behavior).  This way, button states persist, but movement will only occur once.  For further customization, both `pointing_device_init` and `pointing_device_task` can be overridden.
 
 Additionally, by default, `pointing_device_send()` will only send a report when the report has actually changed.  This prevents it from continuously sending mouse reports, which will keep the host system awake.  This behavior can be changed by creating your own `pointing_device_send()` function.
 
-Also, you use the `has_mouse_report_changed(new, old)` function to check to see if the report has changed.
+Also, you use the `has_mouse_report_changed(new_report, old_report)` function to check to see if the report has changed.
 
 ## Examples
 
@@ -318,7 +325,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (set_scrolling) {
         mouse_report.h = mouse_report.x;
         mouse_report.v = mouse_report.y;
-        mouse_report.x = mouse_report.y = 0
+        mouse_report.x = 0;
+        mouse_report.y = 0;
     }
     return mouse_report;
 }

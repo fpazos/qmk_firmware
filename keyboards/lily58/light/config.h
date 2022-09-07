@@ -35,10 +35,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D2
 
 #define RGB_DI_PIN D3
-#define RGBLED_SPLIT { 35, 35 }
-#define RGBLED_NUM 70
+#define RGBLED_SPLIT { 29, 29 }
+#define RGBLED_NUM 58
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_LIMIT_VAL 120
+
+
+#ifdef RGB_MATRIX_ENABLE
+#    define RGBLED_NUM 58  // Number of LEDs
+#    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGB_MATRIX_SPLIT { 29, 29 }
+#endif
 
 #define ENCODERS_PAD_A { F4 }
 #define ENCODERS_PAD_B { F5 }

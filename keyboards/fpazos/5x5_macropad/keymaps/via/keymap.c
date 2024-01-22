@@ -3,16 +3,10 @@
 
 #include QMK_KEYBOARD_H
 
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-	_BASE,
-	_FN
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT_ortho_5x5(
+    [0] = LAYOUT_ortho_5x5(
 		//┌────────┬────────────────┬──────────────┬──────────────────┬──────────────┐
-		   TG(_FN),  KC_NUM_LOCK,     KC_KP_SLASH,    KC_KP_ASTERISK,   KC_KP_MINUS,
+		   TG(1),  KC_NUM_LOCK,     KC_KP_SLASH,    KC_KP_ASTERISK,   KC_KP_MINUS,
 		//├────────┼────────────────┼──────────────┼──────────────────┬──────────────┤
 		 KC_BSPC,    KC_KP_7,         KC_KP_8,        KC_KP_9,          KC_KP_PLUS,
 		//├────────┼────────────────┼──────────────┼──────────────────┼──────────────┤
@@ -22,7 +16,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		//├────────┼────────────────┼──────────────┼──────────────────┼──────────────┤
   KC_AUDIO_VOL_DOWN, KC_KP_0,         KC_KP_0,        KC_KP_DOT,        KC_KP_ENTER ),
 		//├────────┼────────────────┼──────────────┼──────────────────┼──────────────┤
-    [_FN] = LAYOUT_ortho_5x5(
+    [1] = LAYOUT_ortho_5x5(
 		//┌────────┬────────────────┬──────────────┬──────────────────┬──────────────┐
 		   _______,    KC_PSCR,     KC_KP_SLASH,   KC_KP_ASTERISK,    KC_KP_MINUS,
 		//├────────┼────────────────┼──────────────┼──────────────────┬──────────────┤

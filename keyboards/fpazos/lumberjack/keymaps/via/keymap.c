@@ -16,35 +16,97 @@
 
 #include QMK_KEYBOARD_H
 
+enum layers {
+  _QWERTY = 0,
+  _GAME,
+  _LOWER,
+  _RAISE,
+};
+
+#define FN MO(_LOWER)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[0] = LAYOUT_ortho_5x12(
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,
-    KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-    KC_LCTL, MO(2),   KC_LALT, KC_LGUI, MO(1),   KC_SPC,  KC_SPC,  MO(2),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+/* Qwerty
+ * ,-----------------------------------------. ,-----------------------------------------.
+ * |   `  |  1   |  2   |  3   |  4   |  5   | |  6   |  7   |  8   |  9   |  0   | BkSp |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * | Tab  |  Q   |  W   |  E   |  R   |  T   | |  Y   |  U   |  I   |  O   |  P   | Del  |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * | Esc  |  A   |  S   |  D   |  F   |  G   | |  H   |  J   |  K   |  L   |  ;   |  '   |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * | Shft |  Z   |  X   |  C   |  V   |  B   | |  N   |  M   |  ,   |  .   |  /   | Entr |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * | Ctrl |  Fn  | Alt  | Cmd  |  Fn  | Spac | | Spac |  Fn  | Left | Down |  Up  | Rght |
+ * `-----------------------------------------' `-----------------------------------------'
+ */
+[_QWERTY] = LAYOUT_ortho_5x12(
+  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC,
+  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MT(MOD_LSFT,KC_ENT),
+  KC_LCTL, KC_LALT, KC_NUBS, KC_LGUI, LT(_LOWER, KC_SPC),   KC_BSPC,  KC_SPC,  LT(_RAISE, KC_BSPC), KC_RALT, KC_RGUI, KC_RGHT, KC_LCTL
 ),
-[1] = LAYOUT_ortho_5x12(
-    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-    KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),KC_HOME, KC_END, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+
+/* Function
+* ,------------------------------------------. ,-----------------------------------------.
+ * |   `  |   1  |   2  |   3  |   4  |   5  | |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * |   `  |   1  |   2  |   3  |   4  |   5  | |   6  |   7  |   8  |   9  |   0  | Del  |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  | |  F6  |   -  |   =  |   [  |   ]  |  \   |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 | |  F12 |ISO # |ISO / |      |      |      |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * |      |      |      |      |      |      | |      |      | Next | Vol- | Vol+ | Play |
+ * `-----------------------------------------' `-----------------------------------------'
+ */
+[_GAME] = LAYOUT_ortho_5x12(
+  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  KC_CAPS, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC,
+  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+  KC_LCTL, KC_LALT, KC_GRV, KC_LGUI, LT(_LOWER, KC_BSPC),  KC_SPC,  KC_BSPC,  LT(_RAISE, KC_BSPC), KC_RALT, KC_RGUI, KC_RGHT, KC_RCTL
 ),
-[2] = LAYOUT_ortho_5x12(
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
-    KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+
+
+[_LOWER] = LAYOUT_ortho_5x12(
+  KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+  KC_CAPS, RSFT(KC_0), ALGR(KC_1), KC_CIRC, RSFT(KC_1), C(KC_F5), KC_PSCR, RALT(KC_PSCR), RALT(KC_3), RALT(KC_2), KC_EQL, KC_LBRC,
+  _______, RALT(KC_4), RALT(KC_QUOT),RALT(KC_LBRC),RSFT(KC_8),KC_MINS,KC_AT, RSFT(KC_9), ALGR(KC_RBRC), ALGR(KC_NUHS), SGUI(KC_R), KC_NUHS,
+  RSFT(KC_5), RSFT(KC_RBRC), KC_SLSH, KC_RBRC, RSFT(KC_7), ALGR(KC_GRV),SGUI(KC_4), C(KC_Z), C(KC_Y), C(KC_V), C(KC_C), C(KC_X),
+  _______, _______, _______, _______, _______, KC_DEL, KC_DEL, _______, _______, _______, _______, _______
 ),
-[3] = LAYOUT_ortho_5x12(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+
+
+[_RAISE] = LAYOUT_ortho_5x12(
+  _______, _______, _______, _______,TG(_GAME),_______, _______, _______, _______, _______, _______, KC_EQL,
+  _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, _______, _______, _______,   KC_UP, _______, _______, _______,
+  _______, KC_PGUP, KC_HOME,  KC_END, KC_PGDN, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, LCA(KC_DEL), C(KC_INS), RSFT(KC_INS), _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
 };
+
+void keyboard_pre_init_user() {
+    writePin(LED1, true);
+    writePin(LED2, true);
+}
+
+void keyboard_post_init_user() {
+    writePin(LED1, false);
+    writePin(LED2, false);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    writePin(LED1, record->event.pressed);
+
+    return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(LED2, state);
+
+    return state;
+}

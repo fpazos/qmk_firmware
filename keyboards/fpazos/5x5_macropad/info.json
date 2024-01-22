@@ -1,13 +1,16 @@
 {
-    "keyboard_name": "5x5_macropad", 
+    "keyboard_name": "5x5_macropad",
     "manufacturer": "m40",
-    "url": "https://www.thingiverse.com/thing:5239739", 
-    "maintainer": "m40-dev", 
+    "url": "https://www.thingiverse.com/thing:5239739",
+    "maintainer": "m40-dev",
     "usb": {
     	"vid": "0xFEED",
     	"pid": "0x0000",
     	"device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["ortho_5x5"],
     "layouts": {
         "LAYOUT_ortho_5x5": {
             "layout": [
@@ -42,6 +45,6 @@
 			{"label":"K404", "x":4, "y":4}
 
 			]
-					}
-				}
-			}
+        }
+    }
+}

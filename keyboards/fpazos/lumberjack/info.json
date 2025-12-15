@@ -4,8 +4,8 @@
   "url": "https://github.com/peej/lumberjack-keyboard",
   "maintainer": "Peej",
   "usb": {
-    "vid": "0x4650",
-    "pid": "0x0001",
+    "vid": "0x706A",
+    "pid": "0x0002",
     "device_version": "0.0.1",
     "max_power": 100
   },

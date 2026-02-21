@@ -14,8 +14,10 @@
         ]
     },
     "features": {
+        "bootmagic": false,
         "dip_switch": false,
-        "encoder": true
+        "encoder": false,
+        "console": true
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2"],

@@ -1,24 +1,5 @@
 {
-    "keyboard_name": "Helix rev3",
-    "dip_switch": {
-        "matrix_grid": [
-            [0, 6],
-            [1, 6],
-            [5, 6],
-            [6, 6]
-        ]
-    },
-    "encoder": {
-        "rotary": [
-            {"pin_a": "B6", "pin_b": "B5"}
-        ]
-    },
-    "features": {
-        "bootmagic": false,
-        "dip_switch": false,
-        "encoder": false,
-        "console": false
-    },
+    "keyboard_name": "Helix Beta",
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2"],
         "rows": ["D4", "C6", "D7", "E6", "B4"]
@@ -92,15 +73,10 @@
         ],
         "split_count": [32, 32]
     },
-    "split": {
-        "handedness": {
-            "matrix_grid": ["D7", "B2"]
-        }
-    },
-    "url": "https://shop.yushakobo.jp/products/2143",
+    "url": "https://shop.yushakobo.jp/products/oss_pcb?variant=39452554231969",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x0003"
+        "pid": "0x0000"
     },
     "layouts": {
         "LAYOUT_4row": {
